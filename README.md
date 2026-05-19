@@ -1,73 +1,82 @@
-# React + TypeScript + Vite
+# 🚀 Profit Margin Calculator v2.0
+### *Maximize Your E-commerce Profitability with Data-Driven Pricing*
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+[![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://reactjs.org/)
+[![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 🌟 Overview
+**Profit Margin Calculator v2.0** is a professional-grade tool built for modern e-commerce entrepreneurs. Whether you're selling on Shopify, Amazon, or Etsy, this calculator helps you move beyond guesswork and start pricing for profit.
 
-## React Compiler
+Stop manually calculating platform fees and shipping costs. Get an instant, itemized breakdown of your net profit, gross margin, and markup in any global currency.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## ✨ Key Features
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### 🏦 Platform Automation
+Select from popular selling platforms (Shopify, Etsy, Amazon FBA, eBay, etc.) and watch the tool automatically calculate the exact transaction and referral fees for you.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### 🌍 Global Currency Support
+Sell internationally? Switch between USD, AUD, CAD, GBP, EUR, and AED with a single click. Every symbol and value updates instantly.
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### 🧪 "What-If" Price Simulator
+Interactive slider that lets you test different pricing scenarios on the fly. See how a $5 price hike changes your bottom line before you ever change it on your store.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+### 🎯 Industry Benchmarks
+Receive instant visual feedback on your profit health. The tool tells you if your margin is **Excellent**, **Healthy**, or **Sustainable** based on global e-commerce standards.
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### 📐 Minimum Price Calculator
+Simply enter your desired profit margin, and the tool tells you the *exact* minimum price you need to charge to hit your goal.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### 📋 One-Click Export
+Copy a clean summary of your results to your clipboard or download a detailed CSV report for your spreadsheets.
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+---
+
+## 🛠️ Technical Stack
+- **Frontend:** React 18+ (TypeScript)
+- **Styling:** Tailwind CSS v4 (Utility-first, responsive design)
+- **Build Tool:** Vite (Ultra-fast development & production builds)
+- **State Management:** React Hooks (Real-time reactive UI)
+
+---
+
+## 🚀 Getting Started
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/waterprooffish99/profit-margin-calculator.git
+   ```
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+3. **Launch the development server**
+   ```bash
+   npm run dev
+   ```
+
+---
+
+## 🤝 Contributors
+
+This project was built with a commitment to clean code and professional UI.
+
+- **[waterprooffish99](https://github.com/waterprooffish99)** — Lead Developer & Visionary
+- **Gemini CLI** — Senior Mentor & Full-Stack Architect
+
+---
+
+## 📄 License
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+---
+<p align="center">
+  Generated by <b>Profit Margin Calculator v2.0</b> — Pricing for the Pros.
+</p>
