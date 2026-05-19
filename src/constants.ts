@@ -5,7 +5,7 @@
  * or add new currencies in one place without touching component logic.
  */
 
-import { Platform, Currency, Benchmark } from './types';
+import type { Platform, Currency, Benchmark } from './types';
 
 export const PLATFORMS: Platform[] = [
   { id: 'custom', name: 'None / Custom', feeFlat: 0, feePercent: 0 },

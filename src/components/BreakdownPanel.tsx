@@ -6,7 +6,7 @@
  */
 
 import React from 'react';
-import { CalculatorState, CalculationResults, Currency } from '../types';
+import type { CalculatorState, CalculationResults, Currency } from '../types';
 
 interface BreakdownPanelProps {
   state: CalculatorState;

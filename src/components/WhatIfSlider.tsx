@@ -6,7 +6,7 @@
  */
 
 import React from 'react';
-import { Currency } from '../types';
+import type { Currency } from '../types';
 
 interface WhatIfSliderProps {
   targetPrice: number;

@@ -7,7 +7,7 @@
  */
 
 import React, { useState, useMemo } from 'react';
-import { CalculatorState, Platform, Currency } from '../types';
+import type { CalculatorState, Platform, Currency } from '../types';
 
 interface MinPriceCalculatorProps {
   state: CalculatorState;

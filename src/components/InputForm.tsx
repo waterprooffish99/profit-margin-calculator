@@ -6,7 +6,7 @@
  */
 
 import React from 'react'
-import { CalculatorState, Currency } from '../types'
+import type { CalculatorState, Currency } from '../types'
 
 interface InputFormProps {
   state: CalculatorState
@@ -41,7 +41,9 @@ const InputForm: React.FC<InputFormProps> = ({ state, currency, onChange }) => {
               type="number"
               name={input.key}
               id={input.key}
-              className="block w-full border-gray-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500 sm:text-sm p-2.5 border outline-none transition-colors pl-8"
+              className={`block w-full border-gray-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500 sm:text-sm p-2.5 border outline-none transition-colors ${
+                currency.symbol.length > 1 ? 'pl-12' : 'pl-8'
+              }`}
               placeholder="0.00"
               value={state[input.key as keyof CalculatorState] || ''}
               onChange={(e) => handleChange(input.key as keyof CalculatorState, e)}

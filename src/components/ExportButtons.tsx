@@ -6,7 +6,7 @@
  */
 
 import React from 'react';
-import { CalculationResults, Currency } from '../types';
+import type { CalculationResults, Currency } from '../types';
 
 interface ExportButtonsProps {
   calculations: CalculationResults;
