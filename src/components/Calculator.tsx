@@ -5,7 +5,7 @@
  * platforms, and currencies, and performs real-time calculations.
  */
 
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect, useRef } from 'react'
 import InputForm from './InputForm'
 import ResultsDashboard from './ResultsDashboard'
 import WhatIfSlider from './WhatIfSlider'
@@ -13,8 +13,12 @@ import PlatformSelector from './PlatformSelector'
 import CurrencySwitcher from './CurrencySwitcher'
 import BreakdownPanel from './BreakdownPanel'
 import MinPriceCalculator from './MinPriceCalculator'
+import PaywallModal from './PaywallModal'
 import type { CalculatorState, CalculationResults } from '../types'
 import { PLATFORMS, CURRENCIES } from '../constants'
+
+const STORAGE_KEY = 'profit_calc_usage_v2';
+const FREE_LIMIT = 3;
 
 const Calculator = () => {
   // Initialize state with default values
@@ -27,7 +31,40 @@ const Calculator = () => {
     currencyCode: 'USD',
   })
 
+  const [usageCount, setUsageCount] = useState<number>(0);
   const [whatIfPrice, setWhatIfPrice] = useState<number | null>(null)
+  const isFirstRender = useRef(true);
+  const debounceTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  // Load usage count from localStorage
+  useEffect(() => {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved) setUsageCount(parseInt(saved, 10));
+  }, []);
+
+  // Increment usage count with debounce to prevent every keystroke from counting as 1
+  useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
+
+    if (usageCount >= FREE_LIMIT) return;
+
+    if (debounceTimer.current) clearTimeout(debounceTimer.current);
+
+    debounceTimer.current = setTimeout(() => {
+      setUsageCount((prev) => {
+        const newCount = prev + 1;
+        localStorage.setItem(STORAGE_KEY, newCount.toString());
+        return newCount;
+      });
+    }, 1500); // 1.5s debounce: user finished typing = 1 calculation
+
+    return () => {
+      if (debounceTimer.current) clearTimeout(debounceTimer.current);
+    };
+  }, [state]);
 
   // Find active platform and currency objects
   const activePlatform = PLATFORMS.find(p => p.id === state.platformId) || PLATFORMS[0]
@@ -71,6 +108,8 @@ const Calculator = () => {
 
   return (
     <div className="space-y-8">
+      {usageCount >= FREE_LIMIT && <PaywallModal />}
+
       {/* Global Settings: Currency */}
       <div className="flex justify-end">
         <CurrencySwitcher 

@@ -7,6 +7,8 @@
 
 import type { Platform, Currency, Benchmark } from './types';
 
+export const GUMROAD_URL = 'https://yourusername.gumroad.com/l/profit-calculator-unlimited';
+
 export const PLATFORMS: Platform[] = [
   { id: 'custom', name: 'None / Custom', feeFlat: 0, feePercent: 0 },
   { id: 'shopify', name: 'Shopify Basic', feeFlat: 0.30, feePercent: 2.9 },
