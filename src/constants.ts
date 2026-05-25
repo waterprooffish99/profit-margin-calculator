@@ -7,7 +7,8 @@
 
 import type { Platform, Currency, Benchmark } from './types';
 
-export const GUMROAD_URL = 'https://yourusername.gumroad.com/l/profit-calculator-unlimited';
+// This is the live Gumroad product link.
+export const GUMROAD_URL = 'https://salmanhasssan.gumroad.com/l/profit-margin-calculator';
 
 export const PLATFORMS: Platform[] = [
   { id: 'custom', name: 'None / Custom', feeFlat: 0, feePercent: 0 },

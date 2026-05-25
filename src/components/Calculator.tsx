@@ -18,7 +18,7 @@ import type { CalculatorState, CalculationResults } from '../types'
 import { PLATFORMS, CURRENCIES } from '../constants'
 
 const STORAGE_KEY = 'profit_calc_usage_v2';
-const FREE_LIMIT = 3;
+const FREE_LIMIT = 5;
 
 const Calculator = () => {
   // Initialize state with default values
@@ -31,40 +31,54 @@ const Calculator = () => {
     currencyCode: 'USD',
   })
 
-  const [usageCount, setUsageCount] = useState<number>(0);
+  const [usageCount, setUsageCount] = useState<number>(() => {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    return saved ? parseInt(saved, 10) : 0;
+  });
   const [whatIfPrice, setWhatIfPrice] = useState<number | null>(null)
   const isFirstRender = useRef(true);
+  
+  // Track unique product combinations already counted in this session
+  // to avoid double-counting the same product being edited.
+  const countedCombinations = useRef<Set<string>>(new Set());
   const debounceTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // Load usage count from localStorage
-  useEffect(() => {
-    const saved = localStorage.getItem(STORAGE_KEY);
-    if (saved) setUsageCount(parseInt(saved, 10));
-  }, []);
-
-  // Increment usage count with debounce to prevent every keystroke from counting as 1
+  // Increment usage count with "Unique Product" logic
   useEffect(() => {
     if (isFirstRender.current) {
       isFirstRender.current = false;
       return;
     }
 
+    // Only count if below the limit
     if (usageCount >= FREE_LIMIT) return;
+
+    // Only count if they've entered both a price and a cost
+    const hasData = state.targetPrice > 0 && state.cogs > 0;
+    if (!hasData) return;
+
+    // Create a hash based on rounded values to allow minor edits without new counts
+    const productHash = `${Math.round(state.targetPrice)}-${Math.round(state.cogs)}-${state.platformId}`;
+    
+    // If we've already counted this product combination in this session, skip
+    if (countedCombinations.current.has(productHash)) return;
 
     if (debounceTimer.current) clearTimeout(debounceTimer.current);
 
+    // Long debounce (10s) ensures they've actually "settled" on a calculation
     debounceTimer.current = setTimeout(() => {
       setUsageCount((prev) => {
         const newCount = prev + 1;
         localStorage.setItem(STORAGE_KEY, newCount.toString());
+        countedCombinations.current.add(productHash);
         return newCount;
       });
-    }, 1500); // 1.5s debounce: user finished typing = 1 calculation
+    }, 10000); 
 
     return () => {
       if (debounceTimer.current) clearTimeout(debounceTimer.current);
     };
-  }, [state]);
+  }, [state, usageCount]);
 
   // Find active platform and currency objects
   const activePlatform = PLATFORMS.find(p => p.id === state.platformId) || PLATFORMS[0]
@@ -108,7 +122,7 @@ const Calculator = () => {
 
   return (
     <div className="space-y-8">
-      {usageCount >= FREE_LIMIT && <PaywallModal />}
+      {usageCount >= FREE_LIMIT && <PaywallModal onBypass={() => setUsageCount(0)} />}
 
       {/* Global Settings: Currency */}
       <div className="flex justify-end">
@@ -162,6 +176,7 @@ const Calculator = () => {
             calculations={calculations} 
             currency={activeCurrency}
             isWhatIf={whatIfPrice !== null}
+            isLocked={usageCount >= FREE_LIMIT - 1} // Lock when they have 1 try left or reached limit
           />
           <BreakdownPanel 
             state={state}

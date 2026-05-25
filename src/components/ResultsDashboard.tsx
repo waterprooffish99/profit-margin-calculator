@@ -14,9 +14,10 @@ interface ResultsDashboardProps {
   calculations: CalculationResults;
   currency: Currency;
   isWhatIf: boolean;
+  isLocked?: boolean;
 }
 
-const ResultsDashboard: React.FC<ResultsDashboardProps> = ({ calculations, currency, isWhatIf }) => {
+const ResultsDashboard: React.FC<ResultsDashboardProps> = ({ calculations, currency, isWhatIf, isLocked }) => {
   const formatCurrency = (val: number) => {
     return `${currency.symbol}${val.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
   };
@@ -57,7 +58,7 @@ const ResultsDashboard: React.FC<ResultsDashboardProps> = ({ calculations, curre
 
       <div className="mt-8 pt-8 border-t border-white/10 space-y-6">
         <BenchmarkBadge margin={calculations.marginPercentage} />
-        <ExportButtons calculations={calculations} currency={currency} />
+        <ExportButtons calculations={calculations} currency={currency} isLocked={isLocked} />
       </div>
     </div>
   );
