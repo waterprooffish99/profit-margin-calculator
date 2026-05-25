@@ -14,10 +14,10 @@ export const PLATFORMS: Platform[] = [
   { id: 'custom', name: 'None / Custom', feeFlat: 0, feePercent: 0 },
   { id: 'shopify', name: 'Shopify Basic', feeFlat: 0.30, feePercent: 2.9 },
   { id: 'etsy', name: 'Etsy', feeFlat: 0, feePercent: 6.5 },
-  { id: 'amazon', name: 'Amazon FBA', feeFlat: 0, feePercent: 15 },
-  { id: 'ebay', name: 'eBay', feeFlat: 0, feePercent: 13.25 },
-  { id: 'tiktok', name: 'TikTok Shop', feeFlat: 0, feePercent: 8 },
-  { id: 'gumroad', name: 'Gumroad', feeFlat: 0, feePercent: 10 },
+  { id: 'amazon', name: 'Amazon FBA', feeFlat: 0, feePercent: 15, isPremium: true },
+  { id: 'ebay', name: 'eBay', feeFlat: 0, feePercent: 13.25, isPremium: true },
+  { id: 'tiktok', name: 'TikTok Shop', feeFlat: 0, feePercent: 8, isPremium: true },
+  { id: 'gumroad', name: 'Gumroad', feeFlat: 0, feePercent: 10, isPremium: true },
 ];
 
 export const CURRENCIES: Currency[] = [

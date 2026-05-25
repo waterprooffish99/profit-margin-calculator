@@ -2,11 +2,14 @@
  * TypeScript Definitions for Profit Margin Calculator v2.0
  */
 
+export type UserTier = 'BASIC' | 'STANDARD' | 'PREMIUM';
+
 export interface Platform {
   id: string;
   name: string;
   feeFlat: number;
   feePercent: number;
+  isPremium?: boolean; // New: To hide complex platforms from Basic users
 }
 
 export interface Currency {

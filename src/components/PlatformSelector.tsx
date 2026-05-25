@@ -11,15 +11,21 @@ import { PLATFORMS } from '../constants';
 interface PlatformSelectorProps {
   value: string;
   customFee: number;
+  isBasic?: boolean; // New prop to handle tier
   onChange: (platformId: string, customFee: number) => void;
 }
 
-const PlatformSelector: React.FC<PlatformSelectorProps> = ({ value, customFee, onChange }) => {
+const PlatformSelector: React.FC<PlatformSelectorProps> = ({ value, customFee, isBasic, onChange }) => {
+  // Filter platforms if user is on BASIC tier
+  const availablePlatforms = isBasic 
+    ? PLATFORMS.filter(p => !p.isPremium) 
+    : PLATFORMS;
+
   return (
     <div className="space-y-4">
       <div>
         <label htmlFor="platform" className="block text-sm font-medium text-gray-700 mb-1">
-          Selling Platform
+          Selling Platform {isBasic && <span className="text-[10px] text-amber-600 bg-amber-50 px-1.5 py-0.5 rounded ml-2 font-bold uppercase">Basic</span>}
         </label>
         <select
           id="platform"
@@ -27,12 +33,17 @@ const PlatformSelector: React.FC<PlatformSelectorProps> = ({ value, customFee, o
           onChange={(e) => onChange(e.target.value, customFee)}
           className="block w-full border-gray-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500 sm:text-sm p-2.5 border outline-none bg-white transition-colors"
         >
-          {PLATFORMS.map((platform) => (
+          {availablePlatforms.map((platform) => (
             <option key={platform.id} value={platform.id}>
               {platform.name}
             </option>
           ))}
         </select>
+        {isBasic && (
+          <p className="text-[10px] text-gray-400 mt-1 italic">
+            Upgrade to Standard to unlock Amazon, eBay, and TikTok Shop fees.
+          </p>
+        )}
       </div>
 
       {value === 'custom' && (
