@@ -34,7 +34,7 @@ const Calculator = () => {
     cogs: 0,
     shipping: 0,
     customFeePercentage: 0,
-    platformId: 'custom',
+    platformId: 'none',
     targetPrice: 0,
     currencyCode: 'USD',
   })
@@ -88,10 +88,10 @@ const Calculator = () => {
   const activePrice = whatIfPrice !== null ? whatIfPrice : state.targetPrice
 
   const calculations = useMemo((): CalculationResults => {
-    const feePercent = state.platformId === 'custom' 
+    const feePercent = state.platformId === 'none' 
       ? state.customFeePercentage 
-      : activePlatform.feePercent
-    const totalFee = ((feePercent / 100) * activePrice) + (state.platformId === 'custom' ? 0 : activePlatform.feeFlat)
+      : activePlatform.fee
+    const totalFee = ((feePercent / 100) * activePrice) + (state.platformId === 'none' ? 0 : activePlatform.fixedFee)
     const totalCost = state.cogs + state.shipping + totalFee
     const netProfit = activePrice - totalCost
     return {

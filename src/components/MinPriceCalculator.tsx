@@ -20,8 +20,8 @@ const MinPriceCalculator: React.FC<MinPriceCalculatorProps> = ({ state, activePl
 
   const minPrice = useMemo(() => {
     const marginDec = targetMargin / 100;
-    const platformFeeDec = (state.platformId === 'custom' ? state.customFeePercentage : activePlatform.feePercent) / 100;
-    const flatFee = state.platformId === 'custom' ? 0 : activePlatform.feeFlat;
+    const platformFeeDec = (state.platformId === 'none' ? state.customFeePercentage : activePlatform.fee) / 100;
+    const flatFee = state.platformId === 'none' ? 0 : activePlatform.fixedFee;
 
     /**
      * Calculation Logic:

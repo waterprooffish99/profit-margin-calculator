@@ -11,13 +11,55 @@ import type { Platform, Currency, Benchmark } from './types';
 export const GUMROAD_URL = 'https://salmanhasssan.gumroad.com/l/profit-margin-calculator';
 
 export const PLATFORMS: Platform[] = [
-  { id: 'custom', name: 'None / Custom', feeFlat: 0, feePercent: 0 },
-  { id: 'shopify', name: 'Shopify Basic', feeFlat: 0.30, feePercent: 2.9 },
-  { id: 'etsy', name: 'Etsy', feeFlat: 0, feePercent: 6.5 },
-  { id: 'amazon', name: 'Amazon FBA', feeFlat: 0, feePercent: 15, isPremium: true },
-  { id: 'ebay', name: 'eBay', feeFlat: 0, feePercent: 13.25, isPremium: true },
-  { id: 'tiktok', name: 'TikTok Shop', feeFlat: 0, feePercent: 8, isPremium: true },
-  { id: 'gumroad', name: 'Gumroad', feeFlat: 0, feePercent: 10, isPremium: true },
+  {
+    id: 'none',
+    name: 'None / Custom',
+    fee: 0,
+    fixedFee: 0,
+    description: 'Enter your own fee percentage below'
+  },
+  {
+    id: 'shopify_basic',
+    name: 'Shopify Basic',
+    fee: 2.9,
+    fixedFee: 0.30,
+    description: '2.9% + $0.30 per transaction'
+  },
+  {
+    id: 'etsy',
+    name: 'Etsy',
+    fee: 6.5,
+    fixedFee: 0,
+    description: '6.5% transaction fee'
+  },
+  {
+    id: 'amazon_fba',
+    name: 'Amazon FBA',
+    fee: 15,
+    fixedFee: 0,
+    description: '15% referral fee'
+  },
+  {
+    id: 'ebay',
+    name: 'eBay',
+    fee: 13.25,
+    fixedFee: 0,
+    description: '13.25% final value fee'
+  },
+  {
+    id: 'tiktok_shop',
+    name: 'TikTok Shop',
+    fee: 8,
+    fixedFee: 0,
+    description: '8% commission'
+  },
+  {
+    id: 'gumroad',
+    name: 'Gumroad',
+    fee: 10,
+    fixedFee: 0,
+    description: '10% flat fee'
+  }
 ];
 
 export const CURRENCIES: Currency[] = [

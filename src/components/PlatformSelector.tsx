@@ -46,7 +46,7 @@ const PlatformSelector: React.FC<PlatformSelectorProps> = ({ value, customFee, i
         )}
       </div>
 
-      {value === 'custom' && (
+      {value === 'none' && (
         <div className="animate-in fade-in slide-in-from-top-1 duration-200">
           <label htmlFor="customFee" className="block text-sm font-medium text-gray-700 mb-1">
             Custom Fee Percentage
