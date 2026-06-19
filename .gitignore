@@ -22,3 +22,9 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Local-only documentation and helper assets
+LAUNCH_KIT.md
+TRANSITION_REPORT.md
+gemini-prompt-profit-calculator.md
+www.fiverr.com_users_salman_hassan86_manage_gigs_build-a-premium-ecommerce-pricing-and-profit-margin-calculator-tool_edit_wizard=1 (1).png
