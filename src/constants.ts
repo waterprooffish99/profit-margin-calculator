@@ -9,6 +9,8 @@ import type { Platform, Currency, Benchmark } from './types';
 
 // This is the live Gumroad product link.
 export const GUMROAD_URL = 'https://salmanhasssan.gumroad.com/l/profit-margin-calculator';
+// This is the developer's Fiverr profile link.
+export const FIVERR_URL = 'https://www.fiverr.com/salman_hassan86';
 
 export const PLATFORMS: Platform[] = [
   {

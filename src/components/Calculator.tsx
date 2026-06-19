@@ -16,12 +16,12 @@ import CurrencySwitcher from './CurrencySwitcher'
 import BreakdownPanel from './BreakdownPanel'
 import MinPriceCalculator from './MinPriceCalculator'
 import PaywallModal from './PaywallModal'
+import { IS_DEV } from '../utils/environment'
 import type { CalculatorState, CalculationResults, UserTier } from '../types'
 import { PLATFORMS, CURRENCIES } from '../constants'
 
-const STORAGE_KEY = 'profit_calc_usage_v2';
 const TIER_KEY = 'profit_calc_tier';
-const FREE_LIMIT = 5;
+const FREE_LIMIT = 3;
 
 const Calculator = () => {
   // Initialize Tier
@@ -40,8 +40,27 @@ const Calculator = () => {
   })
 
   const [usageCount, setUsageCount] = useState<number>(() => {
-    const saved = localStorage.getItem(STORAGE_KEY);
-    return saved ? parseInt(saved, 10) : 0;
+    if (IS_DEV) return 0; // Layer 4: Skip paywall completely on localhost
+
+    // Layer 3: Timestamp validation with cookie trap
+    const hasVisitedCookie = typeof document !== 'undefined' && 
+      document.cookie.split(';').some((item) => item.trim().startsWith('_pmc_v2_vis='));
+    const lsTs = localStorage.getItem('_pmc_v2_ts');
+    const ssTs = sessionStorage.getItem('_pmc_v2_ts');
+    const hasTimestamp = lsTs || ssTs;
+
+    // Layer 2: Save count in BOTH places and read the higher value
+    const lsCount = parseInt(localStorage.getItem('_pmc_v2_sess') || '0', 10);
+    const ssCount = parseInt(sessionStorage.getItem('_pmc_v2_sess') || '0', 10);
+    const count = Math.max(lsCount, ssCount);
+
+    // If they have cookie but timestamp is missing, they likely cleared storage.
+    // Block them immediately by setting count to free limit.
+    if (hasVisitedCookie && !hasTimestamp) {
+      return FREE_LIMIT;
+    }
+
+    return count;
   });
   const [whatIfPrice, setWhatIfPrice] = useState<number | null>(null)
   const isFirstRender = useRef(true);
@@ -59,6 +78,7 @@ const Calculator = () => {
   };
 
   useEffect(() => {
+    if (IS_DEV) return; // Layer 4: Skip ALL freemium checks - owner is testing
     if (isFirstRender.current) {
       isFirstRender.current = false;
       return;
@@ -73,7 +93,22 @@ const Calculator = () => {
     debounceTimer.current = setTimeout(() => {
       setUsageCount((prev) => {
         const newCount = prev + 1;
-        localStorage.setItem(STORAGE_KEY, newCount.toString());
+        
+        // Layer 2: Save in BOTH places simultaneously
+        localStorage.setItem('_pmc_v2_sess', newCount.toString());
+        sessionStorage.setItem('_pmc_v2_sess', newCount.toString());
+
+        // Layer 3: Save timestamp on first calculation
+        if (!localStorage.getItem('_pmc_v2_ts')) {
+          localStorage.setItem('_pmc_v2_ts', Date.now().toString());
+        }
+        if (!sessionStorage.getItem('_pmc_v2_ts')) {
+          sessionStorage.setItem('_pmc_v2_ts', Date.now().toString());
+        }
+
+        // Set persistent cookie trap to track that calculations have been made
+        document.cookie = "_pmc_v2_vis=1; max-age=31536000; path=/";
+
         countedCombinations.current.add(productHash);
         return newCount;
       });
@@ -120,7 +155,18 @@ const Calculator = () => {
         </div>
       </div>
 
-      {isBasic && usageCount >= FREE_LIMIT && <PaywallModal onBypass={() => setUsageCount(0)} />}
+      {isBasic && usageCount >= FREE_LIMIT && (
+        <PaywallModal 
+          onBypass={() => {
+            localStorage.setItem('_pmc_v2_sess', '0');
+            sessionStorage.setItem('_pmc_v2_sess', '0');
+            localStorage.removeItem('_pmc_v2_ts');
+            sessionStorage.removeItem('_pmc_v2_ts');
+            document.cookie = "_pmc_v2_vis=; max-age=0; path=/";
+            setUsageCount(0);
+          }} 
+        />
+      )}
 
       <div className="flex justify-between items-center">
         {isPremium ? (

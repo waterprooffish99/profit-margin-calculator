@@ -2,11 +2,11 @@
  * PaywallModal Component
  * 
  * A full-screen overlay that blocks access to the calculator after the usage limit.
- * This encourages users to upgrade to the paid version on Gumroad.
+ * This encourages users to upgrade to the paid version on Gumroad or Fiverr.
  */
 
 import React from 'react';
-import { GUMROAD_URL } from '../constants';
+import { GUMROAD_URL, FIVERR_URL } from '../constants';
 
 interface PaywallModalProps {
   onBypass?: () => void;
@@ -31,39 +31,32 @@ const PaywallModal: React.FC<PaywallModalProps> = ({ onBypass }) => {
           </div>
           
           <h2 
-            className="text-2xl font-bold text-gray-900 mb-2 cursor-default select-none"
+            className="text-2xl font-bold text-gray-900 mb-2 cursor-default select-none animate-pulse"
             onClick={handleBypass}
             title="Owner Bypass: Alt+Click"
           >
             Limit Reached!
           </h2>
-          <p className="text-gray-600 mb-6 leading-relaxed">
-            You have used your **5 free calculations**. Unlock unlimited access and take your e-commerce business to the next level.
+          <p className="text-gray-600 mb-6 leading-relaxed text-sm">
+            You have used your <span className="font-extrabold text-emerald-600">3 free calculations</span>.
           </p>
 
-          <div className="bg-emerald-50 rounded-2xl p-4 mb-8 text-left border border-emerald-100">
-            <h3 className="text-emerald-900 font-bold text-sm mb-3 flex items-center gap-2">
-              <svg className="w-5 h-5 text-emerald-600" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-              </svg>
-              What's included in Lifetime Access:
+          <div className="bg-emerald-50 rounded-2xl p-5 mb-8 text-left border border-emerald-100">
+            <h3 className="text-emerald-950 font-bold text-sm mb-4">
+              Unlock unlimited access:
             </h3>
-            <ul className="space-y-2 text-sm text-emerald-800">
-              <li className="flex items-center gap-2">
-                <span className="w-1.5 h-1.5 bg-emerald-400 rounded-full"></span>
-                <strong>Unlimited Calculations</strong> (No more limits)
+            <ul className="space-y-3 text-sm text-emerald-800">
+              <li className="flex items-start gap-2">
+                <span className="text-emerald-600 font-bold mt-0.5">→</span>
+                <span>
+                  Buy source code on Gumroad: <a href={GUMROAD_URL} target="_blank" rel="noopener noreferrer" className="font-semibold text-emerald-700 hover:text-emerald-900 underline">Gumroad Link - $19</a>
+                </span>
               </li>
-              <li className="flex items-center gap-2">
-                <span className="w-1.5 h-1.5 bg-emerald-400 rounded-full"></span>
-                <strong>Unlimited Data Exports</strong> (CSV & Clipboard)
-              </li>
-              <li className="flex items-center gap-2">
-                <span className="w-1.5 h-1.5 bg-emerald-400 rounded-full"></span>
-                <strong>FREE BONUS:</strong> "Hidden Fees" Checklist (PDF)
-              </li>
-              <li className="flex items-center gap-2">
-                <span className="w-1.5 h-1.5 bg-emerald-400 rounded-full"></span>
-                <strong>FREE BONUS:</strong> Pricing Strategy Guide (PDF)
+              <li className="flex items-start gap-2">
+                <span className="text-emerald-600 font-bold mt-0.5">→</span>
+                <span>
+                  Hire me for custom work on Fiverr: <a href={FIVERR_URL} target="_blank" rel="noopener noreferrer" className="font-semibold text-emerald-700 hover:text-emerald-900 underline">Fiverr Link</a>
+                </span>
               </li>
             </ul>
           </div>
@@ -75,10 +68,10 @@ const PaywallModal: React.FC<PaywallModalProps> = ({ onBypass }) => {
               rel="noopener noreferrer"
               className="block w-full py-4 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-2xl shadow-lg shadow-emerald-200 transition-all transform hover:-translate-y-1 active:scale-95 text-lg"
             >
-              Unlock Everything — $19
+              Get Lifetime Access — $19
             </a>
-            <p className="text-xs text-gray-400">
-              One-time payment. Lifetime updates included.
+            <p className="text-xs text-gray-500">
+              Questions? <a href={FIVERR_URL} target="_blank" rel="noopener noreferrer" className="text-emerald-600 font-semibold hover:underline">Message me on Fiverr</a> before buying.
             </p>
           </div>
         </div>
