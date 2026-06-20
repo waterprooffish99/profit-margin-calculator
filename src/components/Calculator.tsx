@@ -18,7 +18,7 @@ import MinPriceCalculator from './MinPriceCalculator'
 import PaywallModal from './PaywallModal'
 import { IS_DEV } from '../utils/environment'
 import type { CalculatorState, CalculationResults, UserTier } from '../types'
-import { PLATFORMS, CURRENCIES } from '../constants'
+import { PLATFORMS, CURRENCIES, DEV_SESSION_KEY } from '../constants'
 
 const TIER_KEY = 'profit_calc_tier';
 const FREE_LIMIT = 3;
@@ -41,6 +41,7 @@ const Calculator = () => {
 
   const [usageCount, setUsageCount] = useState<number>(() => {
     if (IS_DEV) return 0; // Layer 4: Skip paywall completely on localhost
+    if (typeof sessionStorage !== 'undefined' && sessionStorage.getItem(DEV_SESSION_KEY) === 'true') return 0; // Owner bypass on live site
 
     // Layer 3: Timestamp validation with cookie trap
     const hasVisitedCookie = typeof document !== 'undefined' && 
@@ -79,6 +80,7 @@ const Calculator = () => {
 
   useEffect(() => {
     if (IS_DEV) return; // Layer 4: Skip ALL freemium checks - owner is testing
+    if (typeof sessionStorage !== 'undefined' && sessionStorage.getItem(DEV_SESSION_KEY) === 'true') return; // Owner bypass on live site
     if (isFirstRender.current) {
       isFirstRender.current = false;
       return;
@@ -157,6 +159,7 @@ const Calculator = () => {
 
       {isBasic && usageCount >= FREE_LIMIT && (
         <PaywallModal 
+          currencySymbol={activeCurrency.symbol}
           onBypass={() => {
             localStorage.setItem('_pmc_v2_sess', '0');
             sessionStorage.setItem('_pmc_v2_sess', '0');

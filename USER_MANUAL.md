@@ -125,7 +125,7 @@ Double-click the file to open it in Microsoft Excel, Apple Numbers, LibreOffice,
 ## Common Questions
 
 **Q: Is this tool free?**
-A: Yes, you get 3 free calculations to try out the tool. To perform unlimited calculations and unlock export features, you can upgrade to a lifetime access package.
+A: Yes, you get 3 free calculations to try out the tool. To perform unlimited calculations and unlock export features, you can upgrade to a pro access plan.
 
 **Q: Do I need to create an account?**
 A: No. Just open the link and start using it immediately.
@@ -144,7 +144,7 @@ A: Yes. You can change your costs and selling prices for any number of products 
 ## Troubleshooting
 
 **Problem: The page shows a "Limit Reached!" paywall message**
-- **Solution:** You have reached the limit of 3 free calculations. To unlock unlimited calculations and access export tools, please purchase the lifetime source code license on Gumroad, or hire me on Fiverr to build a custom white-labeled calculator for your business.
+- **Solution:** You have reached the limit of 3 free calculations. To unlock unlimited calculations and access export tools, please purchase a pro access license on Gumroad, or hire me on Fiverr to build a custom white-labeled calculator for your business.
 
 **Problem: My CSV file will not open**
 - **Solution:** Make sure you have a spreadsheet viewer installed (like Microsoft Excel, Apple Numbers, or LibreOffice). Alternatively, you can open Google Sheets in your browser, click "File" -> "Import", and upload the downloaded CSV file.
